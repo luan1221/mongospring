@@ -5,6 +5,7 @@ import com.luan1221.mongospring.dto.UserDTO;
 import com.luan1221.mongospring.services.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -26,6 +27,11 @@ public class UserResource {
         List<UserDTO> usersDTO = service.findAll().stream().map(
                 x -> new UserDTO(x)).collect(Collectors.toList());
         return ResponseEntity.ok().body(usersDTO);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<UserDTO> findById(@PathVariable String id) {
+        return ResponseEntity.ok().body(new UserDTO(service.findById(id)));
     }
 
 }
