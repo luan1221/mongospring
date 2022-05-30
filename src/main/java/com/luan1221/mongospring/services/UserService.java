@@ -19,11 +19,11 @@ public class UserService {
     }
 
     public List<User> findAll() {
-        return this.repository.findAll();
+        return repository.findAll();
     }
 
     public User findById(String id) {
-        Optional<User> optionalUser = this.repository.findById(id);
+        Optional<User> optionalUser = repository.findById(id);
         return optionalUser.orElseThrow(() -> new ObjectNotFoundException("Objeto nao encontrado"));
     }
 
@@ -35,7 +35,18 @@ public class UserService {
         repository.deleteById(id);
     }
 
+    public User update(User user) {
+        User updatedUser = repository.findById(user.getId()).get();
+        updateData(updatedUser, user);
+        return repository.save(updatedUser);
+    }
+
     public User fromDTO(UserDTO userDTO) {
         return new User(userDTO.getId(), userDTO.getName(), userDTO.getEmail());
+    }
+
+    public void updateData(User updatedUser, User user) {
+        updatedUser.setName(user.getName());
+        updatedUser.setEmail(user.getEmail());
     }
 }
