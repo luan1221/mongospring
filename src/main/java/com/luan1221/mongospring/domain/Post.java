@@ -1,11 +1,14 @@
 package com.luan1221.mongospring.domain;
 
 import com.luan1221.mongospring.dto.AuthorDTO;
+import com.luan1221.mongospring.dto.CommentDTO;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Document
 public class Post implements Serializable {
@@ -16,6 +19,8 @@ public class Post implements Serializable {
     private String title;
     private String body;
     private AuthorDTO author;
+
+    private List<CommentDTO> comments = new ArrayList<>();
 
     public Post() {}
 
@@ -45,6 +50,10 @@ public class Post implements Serializable {
 
     public AuthorDTO getAuthor() {
         return author;
+    }
+
+    public List<CommentDTO> getComments() {
+        return comments;
     }
 
     public void setId(String id) {
