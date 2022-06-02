@@ -1,5 +1,6 @@
 package com.luan1221.mongospring.resources;
 
+import com.luan1221.mongospring.domain.Post;
 import com.luan1221.mongospring.domain.User;
 import com.luan1221.mongospring.dto.UserDTO;
 import com.luan1221.mongospring.services.UserService;
@@ -31,6 +32,11 @@ public class UserResource {
     @GetMapping("/{id}")
     public ResponseEntity<UserDTO> findById(@PathVariable String id) {
         return ResponseEntity.ok().body(new UserDTO(service.findById(id)));
+    }
+
+    @GetMapping("/{id}/posts")
+    public ResponseEntity<List<Post>> findPosts(@PathVariable String id) {
+        return ResponseEntity.ok().body(service.findById(id).getPosts());
     }
 
     @PostMapping
